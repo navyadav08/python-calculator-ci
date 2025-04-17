@@ -1,0 +1,23 @@
+name: CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v3
+
+    - name: 🧪 Run Tests (CI check)
+      run: |
+        python3 -m unittest test_calculator.py
+
+    - name: 🚀 Deploy
+      run: |
+        chmod +x ./deploy.sh
+        ./deploy.sh
